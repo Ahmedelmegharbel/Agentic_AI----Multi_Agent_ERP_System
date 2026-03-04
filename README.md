@@ -1,11 +1,13 @@
 # Agentic_AI----Multi_Agent_ERP_System
 
 -- Agentic ERP: Tyre Inventory Manager --
-A lightweight, multi-agent system built with CrewAI to automate the supply chain "Happy Path"—from order validation to procurement triggers.
+
+A lightweight, multi-agent system built with CrewAI to automate the supply chain from order validation to procurement triggers.
 
 ===========================================================================================================================================
 
 -- Overview --
+
 This project demonstrates how two specialized AI agents collaborate to manage a tyre warehouse:
 
 Stock Controller "inventory_agent": Validates incoming orders against a mock database and calculates remaining inventory.
@@ -15,6 +17,7 @@ Purchaser "procurement_agent": Monitoring the output of the Controller, this age
 =====================================================================================================================================================
 
 -- Quick Start --
+
 1. Prerequisites
 Ensure you have Python 3.10+ installed.
 
