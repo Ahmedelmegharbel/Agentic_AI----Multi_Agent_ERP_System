@@ -3,13 +3,13 @@ from dotenv import load_dotenv
 from crewai import Agent, Task, Crew
 from langchain_openai import ChatOpenAI
 
-load_dotenv()
+load_dotenv()  # Always use .env for keys
 
-# Config & LLM
+# 1. Config & LLM (Minimalist Setup)
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 mock_stock = {"Michelin": 10, "Bridgestone": 2}
 
-# Agents defined
+# 2. Define the Agents (Roles over Backstories)
 
 
 def get_crew(order):
@@ -17,17 +17,19 @@ def get_crew(order):
         role="Stock Controller",
         goal=f"Check if we have enough stock for: {order}. Current levels: {mock_stock}",
         backstory="You are a precise inventory logic gate.",
-        llm=llm
+        llm=llm,
+        verbose=True
     )
 
     procurement_agent = Agent(
         role="Purchaser",
         goal="If stock is < 5 after the order, write a short PO. Otherwise, say 'STABLE'.",
         backstory="You only act when replenishment is critical.",
-        llm=llm
+        llm=llm,
+        verbose=True
     )
 
-    # Tasks defined
+    # 3. Define the Tasks (Direct & Output-Oriented)
     check_stock = Task(
         description=f"Analyze order: {order}. Calculate remaining stock.",
         expected_output="A summary of stock after fulfillment.",
@@ -43,7 +45,7 @@ def get_crew(order):
     return Crew(agents=[inventory_agent, procurement_agent], tasks=[check_stock, refill_stock])
 
 
-# Execute
+# 4. Execute
 if __name__ == "__main__":
     order_input = "4x Michelin tyres"
     erp_crew = get_crew(order_input)
